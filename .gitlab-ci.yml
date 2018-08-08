@@ -2,6 +2,7 @@ stages:
   - build
   - integration_test
   - acceptance_test
+  - cleanup
 
 building:
   stage: build
@@ -24,8 +25,9 @@ acceptance_testing:
   script: echo "Acceptance Testing..."
 
 pages:
+  stage: cleanup
   script:
-    - mv unit_tests.html public/unit_tests.html
+    - mv unit_tests.html public
   artifacts:
     paths:
       - public
