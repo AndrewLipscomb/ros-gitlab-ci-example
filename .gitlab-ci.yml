@@ -44,8 +44,8 @@ acceptance_testing:
 pages:
   stage: cleanup
   script:
-    - mkdir public
     - mv unit_tests.html public
+    - mv integration_tests.html public
   artifacts:
     paths:
       - public
