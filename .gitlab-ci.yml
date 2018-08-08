@@ -31,7 +31,7 @@ integration_testing:
   script:
     - echo "Integration Tests..."
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=OFF -DBUILD_INTEGRATION_TESTS=ON
-    - xsltproc -o integration_tests.html gtest-result.xsl build/test_results/primary/rostest-test_integration_tests.xml
+    - xsltproc -o integration_tests.html gtest-result.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
   artifacts:
     paths:
     - integration_tests.html
