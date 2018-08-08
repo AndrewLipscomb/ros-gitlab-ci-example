@@ -22,3 +22,10 @@ integration_testing:
 acceptance_testing:
   stage: acceptance_test
   script: echo "Acceptance Testing..."
+
+pages:
+  script:
+    - mv unit_tests.html public/unit_tests.html
+  artifacts:
+    paths:
+      - public
