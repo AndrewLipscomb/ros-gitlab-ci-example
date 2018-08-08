@@ -8,7 +8,8 @@ building:
   stage: build
   script: 
     - echo "Building..."
-    - ./source_ros.bash
+    - source source_ros.bash
+    - source $ROS_SOURCE_BASH_FILE
     - catkin_make run_tests
     - xsltproc -o unit_tests.html gtest-result.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml
   artifacts:
