@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(primary)
 
+option(BUILD_UNIT_TESTS "Build the unit tests" OFF)
+option(BUILD_INTEGRATION_TESTS "Build the integration tests" OFF)
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
@@ -197,30 +200,37 @@ target_link_libraries(
 #############
 
 ## Add gtest based cpp test target and link libraries
-catkin_add_gtest(
-  primary_controller_unit_tests
-  test/unit_tests.cpp
-)
-if(TARGET primary_controller_unit_tests)
-  target_link_libraries(
-    primary_controller_unit_tests 
-    ${catkin_LIBRARIES}
-    ${PROJECT_NAME}
-  )
-endif()
+if(CATKIN_ENABLE_TESTING)
+  if(BUILD_UNIT_TESTS)
+    catkin_add_gtest(
+      primary_controller_unit_tests
+      test/unit_tests.cpp
+    )
+    if(TARGET primary_controller_unit_tests)
+      target_link_libraries(
+        primary_controller_unit_tests 
+        ${catkin_LIBRARIES}
+        ${PROJECT_NAME}
+      )
+    endif()
+  endif(BUILD_UNIT_TESTS)
 
-add_rostest_gtest(
-  primary_controller_integration_tests 
-  test/integration_tests.test 
-  test/integration_tests.cpp
-)
-if(TARGET primary_controller_integration_tests)
-  target_link_libraries(
-    primary_controller_integration_tests 
-    ${catkin_LIBRARIES}
-    ${PROJECT_NAME}
-  )
-endif()
+  if(BUILD_INTEGRATION_TESTS)
+    add_rostest_gtest(
+      primary_controller_integration_tests 
+      test/integration_tests.test 
+      test/integration_tests.cpp
+    )
+    if(TARGET primary_controller_integration_tests)
+      target_link_libraries(
+        primary_controller_integration_tests 
+        ${catkin_LIBRARIES}
+        ${PROJECT_NAME}
+      )
+    endif()
+  endif(BUILD_INTEGRATION_TESTS)
+
+endif(CATKIN_ENABLE_TESTING) # CATKIN_ENABLE_TESTING
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

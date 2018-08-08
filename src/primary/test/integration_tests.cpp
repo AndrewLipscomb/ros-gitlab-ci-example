@@ -7,9 +7,14 @@ namespace altinners
 namespace primary_controller
 {
     
-TEST(PrimaryControllerSuite, ThePoopTest)
+TEST(PrimaryControllerSuite, AnIntegrationTest)
 {
     EXPECT_EQ(1, 1);
+}
+
+TEST(PrimaryControllerSuite, ABadTest)
+{
+    EXPECT_EQ(1, 0);
 }
 
 }

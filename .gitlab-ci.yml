@@ -1,5 +1,6 @@
 stages:
   - build
+  - unit_test
   - integration_test
   - acceptance_test
   - cleanup
@@ -12,7 +13,13 @@ building:
   stage: build
   script: 
     - echo "Building..."
-    - catkin_make run_tests
+    - catkin_make 
+
+unit_testing:
+  stage: unit_test
+  script: 
+    - echo "Unit Testing..."
+    - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF
     - xsltproc -o unit_tests.html gtest-result.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml
   artifacts:
     paths:
@@ -21,7 +28,14 @@ building:
 
 integration_testing:
   stage: integration_test
-  script: echo "Integration Testing..."
+  script:
+    - echo "Integration Tests..."
+    - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=OFF -DBUILD_INTEGRATION_TESTS=ON
+    - xsltproc -o integration_tests.html gtest-result.xsl build/test_results/primary/rostest-test_integration_tests.xml
+  artifacts:
+    paths:
+    - integration_tests.html
+    expire_in: 1 week    
 
 acceptance_testing:
   stage: acceptance_test
