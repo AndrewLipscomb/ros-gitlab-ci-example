@@ -5,7 +5,10 @@ stages:
 
 building:
   stage: build
-  script: echo "Building..."
+  script: 
+    - echo "Building..."
+    - source /opt/ros/melodic/setup.bash
+    - printenv
 
 unit_testing:
   stage: unit_test
