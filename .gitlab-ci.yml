@@ -7,8 +7,6 @@ stages:
 before_script:
   - source source_ros.bash
   - source $ROS_SOURCE_BASH_FILE
-  - ./roscore_kill.bash
-  - nohup roscore & disown
 
 building:
   stage: build
@@ -37,6 +35,3 @@ pages:
   artifacts:
     paths:
       - public
-
-after_script:
-  - ./roscore_kill.bash
