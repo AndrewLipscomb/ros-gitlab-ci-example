@@ -1,0 +1,16 @@
+stages:
+  - build
+  - unit_test
+  - integration_test
+
+building:
+  stage: build
+  script: echo "Building..."
+
+unit_testing:
+  stage: unit_test
+  script: echo "Unit Testing..."
+
+integration_testing:
+  stage: integration_test
+  script: echo "Integration Testing..."
