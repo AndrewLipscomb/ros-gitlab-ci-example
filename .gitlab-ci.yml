@@ -8,7 +8,7 @@ building:
   script: 
     - echo "Building..."
     - source /opt/ros/melodic/setup.bash
-    - printenv
+    - catkin_make run_tests
 
 unit_testing:
   stage: unit_test

@@ -21,6 +21,9 @@ class PrimaryController
     public:
 	    explicit PrimaryController(ros::NodeHandle& nh);
 
+        int64_t get_last_int() const;
+        double get_last_double() const;
+
     protected:
         bool reset(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp);
 
@@ -33,7 +36,10 @@ class PrimaryController
         ros::Publisher status_pub_;				        //< Publishes a status
 
         ros::Subscriber secondary_integer_sub_;			///< Subscribes to an integer from secondary
+        int64_t last_int_ = 0;
+
         ros::Subscriber secondary_double_sub_;			///< Subscribes to a double from secondary
+        double last_double_ = 0.0;
 
 };
 

@@ -1,0 +1,3 @@
+<launch>
+    <test test-name="primary_controller_integration_tests" pkg="primary" type="primary_controller_integration_tests" />
+</launch>

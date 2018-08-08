@@ -12,6 +12,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
+find_package(rostest REQUIRED)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -120,9 +122,10 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/primary.cpp
-# )
+add_library(
+  ${PROJECT_NAME}
+  src/primary_controller.cpp
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -135,7 +138,6 @@ include_directories(
 add_executable(
   ${PROJECT_NAME}_node 
   src/main.cpp
-  src/primary_controller.cpp
 )
 
 ## Rename C++ executable without prefix
@@ -149,8 +151,10 @@ add_executable(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
+target_link_libraries(
+  ${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
+  ${PROJECT_NAME}
 )
 
 #############
@@ -193,10 +197,30 @@ target_link_libraries(${PROJECT_NAME}_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_primary.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+catkin_add_gtest(
+  primary_controller_unit_tests
+  test/unit_tests.cpp
+)
+if(TARGET primary_controller_unit_tests)
+  target_link_libraries(
+    primary_controller_unit_tests 
+    ${catkin_LIBRARIES}
+    ${PROJECT_NAME}
+  )
+endif()
+
+add_rostest_gtest(
+  primary_controller_integration_tests 
+  test/integration_tests.test 
+  test/integration_tests.cpp
+)
+if(TARGET primary_controller_integration_tests)
+  target_link_libraries(
+    primary_controller_integration_tests 
+    ${catkin_LIBRARIES}
+    ${PROJECT_NAME}
+  )
+endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)

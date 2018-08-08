@@ -14,8 +14,18 @@ PrimaryController::PrimaryController(ros::NodeHandle& nh)
 
     status_pub_ = nh.advertise<std_msgs::String>("status", 10);
 
-    secondary_integer_sub_ = nh.subscribe("secondary/integer", 10, &PrimaryController::secondary_integer_callback, this);
-    secondary_double_sub_ = nh.subscribe("secondary/double", 10, &PrimaryController::secondary_double_callback, this);
+    secondary_integer_sub_ = nh.subscribe("/secondary/integer", 10, &PrimaryController::secondary_integer_callback, this);
+    secondary_double_sub_ = nh.subscribe("/secondary/double", 10, &PrimaryController::secondary_double_callback, this);
+}
+
+int64_t PrimaryController::get_last_int() const 
+{
+    return last_int_;
+}
+
+double PrimaryController::get_last_double() const 
+{
+    return last_double_;
 }
 
 bool PrimaryController::reset(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp)
@@ -26,12 +36,14 @@ bool PrimaryController::reset(std_srvs::Empty::Request& req, std_srvs::Empty::Re
 
 void PrimaryController::secondary_integer_callback(const std_msgs::Int64::ConstPtr& msg)
 {
-    cout << "Secondary has sent " << msg->data << endl;
+    last_int_ = msg->data;
+    cout << "Secondary has sent " << last_int_ << endl;
 }
 
 void PrimaryController::secondary_double_callback(const std_msgs::Float64::ConstPtr& msg)
 {
-    cout << "Secondary has sent " << msg->data << endl;
+    last_double_ = msg->data;
+    cout << "Secondary has sent " << last_double_ << endl;
 }
 
 }

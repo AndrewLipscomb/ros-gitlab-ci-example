@@ -1,0 +1,4 @@
+<launch>
+	<node name="primary" pkg="primary" type="primary_node" ns="/primary" output="screen" respawn="true" respawn_delay="3.0" />
+	<node name="secondary" pkg="secondary" type="secondary_node" ns="/secondary" output="screen" respawn="true" respawn_delay="3.0" />
+</launch>

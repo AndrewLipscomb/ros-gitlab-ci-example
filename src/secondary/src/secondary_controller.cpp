@@ -14,8 +14,8 @@ SecondaryController::SecondaryController(ros::NodeHandle& nh)
 
     status_pub_ = nh.advertise<std_msgs::String>("status", 10);
 
-    secondary_integer_pub_ = nh.advertise<std_msgs::Int64>("secondary/integer", 10);
-    secondary_double_pub_ = nh.advertise<std_msgs::Float64>("secondary/double", 10);
+    secondary_integer_pub_ = nh.advertise<std_msgs::Int64>("integer", 10);
+    secondary_double_pub_ = nh.advertise<std_msgs::Float64>("double", 10);
 }
 
 bool SecondaryController::reset(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp)
