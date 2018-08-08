@@ -1,7 +1,7 @@
 stages:
   - build
-  - unit_test
   - integration_test
+  - acceptance_test
 
 building:
   stage: build
@@ -9,11 +9,16 @@ building:
     - echo "Building..."
     - source /opt/ros/melodic/setup.bash
     - catkin_make run_tests
-
-unit_testing:
-  stage: unit_test
-  script: echo "Unit Testing..."
+    - xsltproc -o unit_tests.html gtest-result.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml
+  artifacts:
+    paths:
+    - unit_tests.html
+    expire_in: 1 week
 
 integration_testing:
   stage: integration_test
   script: echo "Integration Testing..."
+
+acceptance_testing:
+  stage: acceptance_test
+  script: echo "Acceptance Testing..."
