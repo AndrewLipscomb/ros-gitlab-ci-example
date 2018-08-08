@@ -8,7 +8,7 @@ building:
   stage: build
   script: 
     - echo "Building..."
-    - source /opt/ros/melodic/setup.bash
+    - ./source_ros.bash
     - catkin_make run_tests
     - xsltproc -o unit_tests.html gtest-result.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml
   artifacts:
