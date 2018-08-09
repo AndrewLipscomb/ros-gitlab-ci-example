@@ -19,6 +19,11 @@ This testing setup makes use of a few tools which are assumed to be pre-installe
 
 If you are trying to run this on a local server, to get Pages to run you will need a DNS server if you don't have one already - [dnsmasq](www.thekelleys.org.uk/dnsmasq/doc.html) or [bind9](https://www.isc.org/downloads/bind/) worked for me.
 
+## Usage
+Be first sure your GitLab instance is set up fully with a Runner and Pages both working. Being able to build and view one of the [example GitLab page repos](https://gitlab.com/pages) is a good indication things are working.
+
+Make a new CI project from the Github source. Then, go to CI and start a pipeline. Gitlab should pick up the `.gitlab-ci.yml` file and start building the phases. Once completed, go to Pages in the Project overview, and you should have a rough hewn page containing all the results. 
+
 ## Acknowledgements
 Props to all the Open Source authors that make this stuff possible, built on the shoulders of giants. 
 XML parsing adapted from [wadefelix's XML style sheet](https://github.com/wadefelix/gtxslt) - cheers buddy!
