@@ -12,15 +12,14 @@ before_script:
 building:
   stage: build
   script: 
-    - echo "Building..."
     - catkin_make 
 
 unit_testing:
   stage: unit_test
   script: 
-    - echo "Unit Testing..."
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF
     - xsltproc -o unit_tests.html gtest-result.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml
+    - catkin_test_results
   artifacts:
     paths:
     - unit_tests.html
@@ -29,9 +28,9 @@ unit_testing:
 integration_testing:
   stage: integration_test
   script:
-    - echo "Integration Tests..."
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=OFF -DBUILD_INTEGRATION_TESTS=ON
     - xsltproc -o integration_tests.html gtest-result.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
+    - catkin_test_results
   artifacts:
     paths:
     - integration_tests.html
@@ -39,13 +38,20 @@ integration_testing:
 
 acceptance_testing:
   stage: acceptance_test
-  script: echo "Acceptance Testing..."
+  script: 
+    - ./run_newman.bash
+    - xsltproc -o acceptance_tests.html gtest-result.xsl acceptance_tests.xml
+  artifacts:
+    paths:
+    - acceptance_tests.html
+    expire_in: 1 week    
 
 pages:
   stage: cleanup
   script:
     - mv unit_tests.html public
     - mv integration_tests.html public
+    - mv acceptance_tests.html public
   artifacts:
     paths:
       - public
