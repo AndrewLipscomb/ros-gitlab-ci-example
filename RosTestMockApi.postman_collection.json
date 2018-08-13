@@ -42,37 +42,6 @@
 					"response": []
 				},
 				{
-					"name": "Delete Google",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {},
-						"url": {
-							"raw": "https://google.com",
-							"protocol": "https",
-							"host": [
-								"google",
-								"com"
-							]
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
 					"name": "Get Google Again",
 					"event": [
 						{
