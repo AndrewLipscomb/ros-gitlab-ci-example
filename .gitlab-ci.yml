@@ -25,6 +25,7 @@ unit_testing:
     - xsltproc -o unit_tests_failed.html gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
     - ./check_catkin_results.bash                               # And then check our results
   artifacts:
+    when: always
     paths:
     - unit_tests_all.html
     - unit_tests_failed.html
@@ -38,6 +39,7 @@ integration_testing:
     - xsltproc -o integration_tests_failed.html gtest_result_failed.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
     - ./check_catkin_results.bash
   artifacts:
+    when: always
     paths:
     - integration_tests_all.html
     - integration_tests_failed.html
@@ -51,6 +53,7 @@ acceptance_testing:
     - xsltproc -o acceptance_tests_failed.html newman_result_failed.xsl acceptance_tests.xml  
     - ./check_newman_results.bash                   # And fail properly once the page is generated
   artifacts:
+    when: always
     paths:
     - acceptance_tests_all.html
     - acceptance_tests_failed.html
@@ -66,5 +69,6 @@ pages:
     - mv acceptance_tests_all.html public
     - mv acceptance_tests_failed.html public
   artifacts:
+    when: always
     paths:
       - public
