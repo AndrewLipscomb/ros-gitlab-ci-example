@@ -21,7 +21,7 @@ unit_testing:
   stage: unit_test
   script: 
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF      # catkin_make run_tests will return 0 even if tests fail
-    - xsltproc -o $CI_COMMIT_REF_NAME/unit_tests_all.html gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
+    - xsltproc -o "$CI_COMMIT_REF_NAME/unit_tests_all.html" gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
     - xsltproc -o unit_tests_failed.html gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
     - ./check_catkin_results.bash                               # And then check our results
   artifacts:
