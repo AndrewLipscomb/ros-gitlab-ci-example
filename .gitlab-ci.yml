@@ -26,8 +26,8 @@ unit_testing:
   artifacts:
     when: always
     paths:
-    - unit_tests_all.html
-    - unit_tests_failed.html
+    - ${HTML_FILE_ALL}
+    - ${HTML_FILE_FAILED}
     expire_in: 1 week
 
 integration_testing:
