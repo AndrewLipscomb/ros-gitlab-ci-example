@@ -5,13 +5,13 @@
 	<xsl:template match="testsuites">
 		<html>
 			<head>
-				<title> gTest Report - <xsl:value-of select="@name"/> </title>
+				<title> All Tests </title>
 			</head>
 
 			<body bgcolor="#e0e0f0">
 				<div align="center">
 			        <h3>
-            	        <b> gTest Report - <xsl:value-of select="@name"/> </b>
+            	        <b> All Tests </b>
             		</h3>
             	</div>
 		        <table cols="4" width="90%" align="center">
@@ -32,7 +32,7 @@
 	<xsl:template match="testsuite">
 		<tr bgcolor="#f0e0f0">
 			<td colspan="4">
-				Running Suite <xsl:value-of select="@name"/>
+				Suite <xsl:value-of select="@name"/>
 			</td>
 		</tr>
 		<xsl:apply-templates/>
@@ -56,7 +56,7 @@
 		<tr bgcolor="#e0f0d0">
 			<td> </td>
 			<td colspan="2">
-				Running test <xsl:value-of select="@name"/>...
+				<xsl:value-of select="@name"/>
 			</td>
 			<xsl:choose>
                 <xsl:when test="child::*">
@@ -74,19 +74,19 @@
 		<tr><td colspan="4"  bgcolor="#ff9090">
 				<table width="100%">
 					<tr>
-						<th width="15%"> File Name </th>
+						<th width="15%"> Test Name </th>
 						<td width="50%" bgcolor="#e0eee0">
-							<xsl:value-of select="substring-before(.,':')"/>
+            				<xsl:value-of select="@name"/>
 						</td>
-						<th width="20%"> Line Number </th>
+						<th width="20%"> Execution Time </th>
 						<td width="10%" bgcolor="#e0eee0">
-							<xsl:value-of select='substring-after(substring-before(.,"&#x000A;"),":")'/>
+            				<xsl:value-of select="@time"/>
 						</td>
 					</tr>
 					<tr>
-						<th width="15%"> message </th>
+						<th width="15%"> Message </th>
 						<td colspan="3" width="85%" bgcolor="#e0eee0">
-							<xsl:value-of select="@message"/>
+            				<xsl:value-of select="@message"/>   
 						</td>
 					</tr>
 				</table>

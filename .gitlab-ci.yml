@@ -5,6 +5,9 @@ stages:
   - acceptance_test
   - cleanup
 
+variables:
+  ALLOW_FAILING_TESTS: 0    # A flag to allow continuation in the case of a failing test stage. Set to 1 (not "1") in the Pipeline Variables to permit passing tests even in fail cases
+
 before_script:
   - source source_ros.bash
   - source $ROS_SOURCE_BASH_FILE
@@ -17,41 +20,51 @@ building:
 unit_testing:
   stage: unit_test
   script: 
-    - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF
-    - xsltproc -o unit_tests.html gtest-result.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml
-    - catkin_test_results
+    - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF      # catkin_make run_tests will return 0 even if tests fail
+    - xsltproc -o unit_tests_all.html gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
+    - xsltproc -o unit_tests_failed.html gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
+    - ./check_catkin_results.bash                               # And then check our results
   artifacts:
     paths:
-    - unit_tests.html
+    - unit_tests_all.html
+    - unit_tests_failed.html
     expire_in: 1 week
 
 integration_testing:
   stage: integration_test
   script:
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=OFF -DBUILD_INTEGRATION_TESTS=ON
-    - xsltproc -o integration_tests.html gtest-result.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
-    - catkin_test_results
+    - xsltproc -o integration_tests_all.html gtest_result_all.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
+    - xsltproc -o integration_tests_failed.html gtest_result_failed.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
+    - ./check_catkin_results.bash
   artifacts:
     paths:
-    - integration_tests.html
+    - integration_tests_all.html
+    - integration_tests_failed.html
     expire_in: 1 week    
 
 acceptance_testing:
   stage: acceptance_test
   script: 
-    - ./run_newman.bash
-    - xsltproc -o acceptance_tests.html gtest-result.xsl acceptance_tests.xml
+    - source ./run_newman.bash        # Runs the newman tests, but always returns 0 (newman will return 1 if the newman tests fail)
+    - xsltproc -o acceptance_tests_all.html newman_result_all.xsl acceptance_tests.xml   # We now parse the newman results into a webpage
+    - xsltproc -o acceptance_tests_failed.html newman_result_failed.xsl acceptance_tests.xml  
+    - ./check_newman_results.bash                   # And fail properly once the page is generated
   artifacts:
     paths:
-    - acceptance_tests.html
+    - acceptance_tests_all.html
+    - acceptance_tests_failed.html
     expire_in: 1 week    
 
 pages:
   stage: cleanup
   script:
-    - mv unit_tests.html public
-    - mv integration_tests.html public
-    - mv acceptance_tests.html public
+    - mv unit_tests_all.html public
+    - mv unit_tests_failed.html public
+    - mv integration_tests_all.html public
+    - mv integration_tests_failed.html public
+    - mv acceptance_tests_all.html public
+    - mv acceptance_tests_failed.html public
   artifacts:
     paths:
       - public

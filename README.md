@@ -1,5 +1,5 @@
 # ros-gitlab-ci-example
-An attempt at a minimal, opinionated [ROS](www.ros.org) workspace that can be built and tested using [GitLab CI(https://about.gitlab.com/)
+An attempt at a minimal, opinionated [ROS](www.ros.org) workspace that can be built and tested using [GitLab CI](https://about.gitlab.com/)
 
 ## Overview
 This has been made for experimental use on a bare-metal server, so configuration for Docker, more complicated mock hardware systems, or really any non-trivial setup would likely need some more work. 
