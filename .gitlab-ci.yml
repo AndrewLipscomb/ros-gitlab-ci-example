@@ -15,7 +15,7 @@ before_script:
 building:
   stage: build
   script: 
-    - echo $CI_COMMIT_MESSAGE
+    - echo $CI_BUILD_SHA
     - catkin_make 
 
 unit_testing:
