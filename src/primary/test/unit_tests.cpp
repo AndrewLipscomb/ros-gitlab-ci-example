@@ -19,13 +19,6 @@ TEST(PrimaryControllerSuite, IntegerTypeTest)
     EXPECT_EQ(typeid(int64_t), typeid(primary.get_last_int()));
 }
 
-TEST(PrimaryControllerSuite, FailingTest)
-{
-    ros::NodeHandle private_nh("/");
-    PrimaryController primary(private_nh);
-    EXPECT_EQ(typeid(double), typeid(primary.get_last_int()));
-}
-
 }
 
 }
