@@ -15,8 +15,8 @@ before_script:
 unit_testing:
   stage: unit_test
   variables:
-    - HTML_FILE_ALL: "$CI_COMMIT_SHA/unit_tests_all.html"
-    - HTML_FILE_FAILED: "$CI_COMMIT_SHA/unit_tests_failed.html"
+    HTML_FILE_ALL: "$CI_COMMIT_SHA/unit_tests_all.html"
+    HTML_FILE_FAILED: "$CI_COMMIT_SHA/unit_tests_failed.html"
   script: 
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF      # catkin_make run_tests will return 0 even if tests fail
     - xsltproc -o $HTML_FILE_ALL gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
