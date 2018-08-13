@@ -15,13 +15,14 @@ before_script:
 unit_testing:
   stage: unit_test
   variables:
-    HTML_FILE_ALL: "$CI_COMMIT_SHA/unit_tests_all.html"
-    HTML_FILE_FAILED: "$CI_COMMIT_SHA/unit_tests_failed.html"
+    HTML_FILE_ALL: "$CI_COMMIT_REF_NAME/unit_tests_all.html"
+    HTML_FILE_FAILED: "$CI_COMMIT_REF_NAME/unit_tests_failed.html"
   script: 
     - echo ${HTML_FILE_ALL}
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF      # catkin_make run_tests will return 0 even if tests fail
+    - mkdir public/${CI_COMMIT_REF_NAME}
     - xsltproc -o ${HTML_FILE_ALL} gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
-    - xsltproc -o $HTML_FILE_FAILED gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
+    - xsltproc -o ${HTML_FILE_FAILED} gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
     - ./check_catkin_results.bash                               # And then check our results
   artifacts:
     when: always
@@ -61,8 +62,7 @@ acceptance_testing:
 pages:
   stage: cleanup
   script:
-    - mv $CI_COMMIT_REF_NAME/unit_tests_all.html public
-    - mv unit_tests_failed.html public
+    - mv ${CI_COMMIT_REF_NAME}/* public
     - mv integration_tests_all.html public
     - mv integration_tests_failed.html public
     - mv acceptance_tests_all.html public
