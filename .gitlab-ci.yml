@@ -64,6 +64,7 @@ pages:
   stage: cleanup
   when: always
   script:
+    - ls ${CI_COMMIT_REF_NAME}
     - cp ${CI_COMMIT_REF_NAME}/* public
   artifacts:
     when: always
