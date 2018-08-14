@@ -1,4 +1,5 @@
 stages:
+  - initialise
   - build
   - unit_test
   - integration_test
@@ -12,6 +13,13 @@ before_script:
   - source source_ros.bash
   - source $ROS_SOURCE_BASH_FILE  
 
+pages:
+  stage: initialise
+  artifacts:
+    when: always
+    paths:
+      - public
+
 unit_testing:
   stage: unit_test
   variables:
@@ -24,6 +32,8 @@ unit_testing:
     - xsltproc -o ${HTML_FILE_ALL} gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
     - xsltproc -o ${HTML_FILE_FAILED} gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
     - ./check_catkin_results.bash                               # And then check our results
+  after_script:
+    - mv ${CI_COMMIT_REF_NAME}/* public
   artifacts:
     when: always
     paths:
@@ -59,15 +69,4 @@ acceptance_testing:
     - acceptance_tests_failed.html
     expire_in: 1 week    
 
-pages:
-  stage: cleanup
-  script:
-    - mv ${CI_COMMIT_REF_NAME}/* public
-    - mv integration_tests_all.html public
-    - mv integration_tests_failed.html public
-    - mv acceptance_tests_all.html public
-    - mv acceptance_tests_failed.html public
-  artifacts:
-    when: always
-    paths:
-      - public
+
