@@ -15,6 +15,7 @@ before_script:
 
 pages:
   stage: initialise
+  script: echo "Building Pages"
   artifacts:
     when: always
     paths:
@@ -37,8 +38,8 @@ unit_testing:
   artifacts:
     when: always
     paths:
-    - ${HTML_FILE_ALL}
-    - ${HTML_FILE_FAILED}
+    - ${CI_COMMIT_REF_NAME}/${HTML_FILE_ALL}
+    - ${CI_COMMIT_REF_NAME}/${HTML_FILE_FAILED}
     expire_in: 1 week
 
 integration_testing:
