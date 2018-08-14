@@ -1,6 +1,4 @@
 stages:
-  - initialise
-  - build
   - unit_test
   - integration_test
   - acceptance_test
@@ -23,14 +21,14 @@ unit_testing:
     - mkdir ${CI_COMMIT_REF_NAME}
     - xsltproc -o ${HTML_FILE_ALL} gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
     - xsltproc -o ${HTML_FILE_FAILED} gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
-    - echo ${CI_COMMIT_REF_NAME}
+    - ls ${CI_COMMIT_REF_NAME}
     - ./check_catkin_results.bash                               # And then check our results
-  artifacts:
-    when: always
-    paths:
-    - ${HTML_FILE_ALL}
-    - ${HTML_FILE_FAILED}
-    expire_in: 1 week
+  # artifacts:
+  #   when: always
+  #   paths:
+  #   - ${HTML_FILE_ALL}
+  #   - ${HTML_FILE_FAILED}
+  #   expire_in: 1 week
 
 integration_testing:
   stage: integration_test
