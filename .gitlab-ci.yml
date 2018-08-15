@@ -23,12 +23,12 @@ unit_testing:
     - xsltproc -o ${HTML_FILE_FAILED} gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
     - ls ${CI_COMMIT_REF_NAME}
     - ./check_catkin_results.bash                               # And then check our results
-  # artifacts:
-  #   when: always
-  #   paths:
-  #   - ${HTML_FILE_ALL}
-  #   - ${HTML_FILE_FAILED}
-  #   expire_in: 1 week
+  artifacts:
+    when: always
+    paths:
+    - ${HTML_FILE_ALL}
+    - ${HTML_FILE_FAILED}
+    expire_in: 1 week
 
 integration_testing:
   stage: integration_test
