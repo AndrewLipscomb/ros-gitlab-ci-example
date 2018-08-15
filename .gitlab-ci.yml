@@ -68,7 +68,7 @@ pages:
   stage: cleanup
   when: always
   script:
-    - ls -l ${ARTIFACTS_DIR}
+    - ls -l artifacts
     - echo ${ARTIFACTS_DIR}
     - cp -r ${ARTIFACTS_DIR} public
   artifacts:
