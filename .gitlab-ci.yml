@@ -6,7 +6,7 @@ stages:
 
 variables:
   ALLOW_FAILING_TESTS: 0    # A flag to allow continuation in the case of a failing test stage. Set to 1 (not "1") in the Pipeline Variables to permit passing tests even in fail cases
-  ARTIFACTS_DIR: "${CI_COMMIT_REF_NAME}"
+  ARTIFACTS_DIR: ${CI_COMMIT_REF_NAME}
 
 before_script:
   - source source_ros.bash
