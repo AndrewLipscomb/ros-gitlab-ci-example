@@ -86,7 +86,7 @@ doxygen:
   script: 
     - doxygen Doxyfile
     - mkdir -p ${DOCS_DIR}
-    - cp -r docs/html ${DOCS_DIR}
+    - cp -r docs/html/* ${DOCS_DIR}
     - ls -l ${DOCS_DIR}
   artifacts:
     when: always
