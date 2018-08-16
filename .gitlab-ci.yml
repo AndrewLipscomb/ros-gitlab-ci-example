@@ -19,7 +19,7 @@ variables:
   ARTIFACTS_DIR: "artifacts"
 
 before_script:
-  - source source_ros.bash
+  - source ./bash/source_ros.bash
   - source $ROS_SOURCE_BASH_FILE  
   - npm install --progress=false
 
@@ -31,9 +31,9 @@ unit_testing:
   script: 
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=ON -DBUILD_INTEGRATION_TESTS=OFF      # catkin_make run_tests will return 0 even if tests fail
     - mkdir -p ${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}
-    - xsltproc -o ${HTML_FILE_ALL} gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
-    - xsltproc -o ${HTML_FILE_FAILED} gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
-    - ./check_catkin_results.bash                               # And then check our results
+    - xsltproc -o ${HTML_FILE_ALL} xsl/gtest_result_all.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml # We parse that failed output into a page
+    - xsltproc -o ${HTML_FILE_FAILED} xsl/gtest_result_failed.xsl build/test_results/primary/gtest-primary_controller_unit_tests.xml 
+    - ./bash/check_catkin_results.bash                               # And then check our results
   artifacts:
     when: always
     paths:
@@ -48,9 +48,9 @@ integration_testing:
     HTML_FILE_FAILED: "${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}/integration_tests_failed.html"
   script:
     - catkin_make run_tests --cmake-args -DBUILD_UNIT_TESTS=OFF -DBUILD_INTEGRATION_TESTS=ON
-    - xsltproc -o ${HTML_FILE_ALL} gtest_result_all.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
-    - xsltproc -o ${HTML_FILE_FAILED} gtest_result_failed.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
-    - ./check_catkin_results.bash
+    - xsltproc -o ${HTML_FILE_ALL} xsl/gtest_result_all.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
+    - xsltproc -o ${HTML_FILE_FAILED} xsl/gtest_result_failed.xsl build/test_results/primary/rosunit-primary_controller_integration_tests.xml
+    - ./bash/check_catkin_results.bash
   artifacts:
     when: always
     paths:
@@ -64,10 +64,10 @@ acceptance_testing:
     HTML_FILE_ALL: "${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}/acceptance_tests_all.html"
     HTML_FILE_FAILED: "${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}/acceptance_tests_failed.html"  
   script: 
-    - source ./run_newman.bash        # Runs the newman tests, but always returns 0 (newman will return 1 if the newman tests fail)
-    - xsltproc -o ${HTML_FILE_ALL} newman_result_all.xsl acceptance_tests.xml   # We now parse the newman results into a webpage
-    - xsltproc -o ${HTML_FILE_FAILED} newman_result_failed.xsl acceptance_tests.xml  
-    - ./check_newman_results.bash                   # And fail properly once the page is generated
+    - source ./bash/run_newman.bash        # Runs the newman tests, but always returns 0 (newman will return 1 if the newman tests fail)
+    - xsltproc -o ${HTML_FILE_ALL} xsl/newman_result_all.xsl acceptance_tests.xml   # We now parse the newman results into a webpage
+    - xsltproc -o ${HTML_FILE_FAILED} xsl/newman_result_failed.xsl acceptance_tests.xml  
+    - ./bash/check_newman_results.bash                   # And fail properly once the page is generated
   artifacts:
     when: always
     paths:
@@ -83,7 +83,7 @@ pages:
     - echo ${ARTIFACTS_DIR}
     - cp -r ${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME} public
     - node js/create_git_xml.js
-    - xsltproc -o public/index.html index_page.xsl git_xml.xml
+    - xsltproc -o public/index.html xsl/index_page.xsl git_xml.xml
   artifacts:
     when: always
     paths:
