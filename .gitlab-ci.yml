@@ -4,13 +4,24 @@ stages:
   - acceptance_test
   - cleanup
 
+# Caches nodejs, build and devel folders across the stages
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+    - node_modules/
+    - build/
+    - devel/
+
 variables:
-  ALLOW_FAILING_TESTS: 0    # A flag to allow continuation in the case of a failing test stage. Set to 1 (not "1") in the Pipeline Variables to permit passing tests even in fail cases
+  # A flag to allow continuation in the case of a failing test stage. 
+  # Set to 1 (not "1") in the Pipeline Variables to permit passing tests even in fail cases
+  ALLOW_FAILING_TESTS: 0   
   ARTIFACTS_DIR: "artifacts"
 
 before_script:
   - source source_ros.bash
   - source $ROS_SOURCE_BASH_FILE  
+  - npm install --progress=false
 
 unit_testing:
   stage: unit_test
@@ -68,7 +79,6 @@ pages:
   stage: cleanup
   when: always
   script:
-    - npm install --progress=false
     - ls -l artifacts
     - echo ${ARTIFACTS_DIR}
     - cp -r ${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME} public
