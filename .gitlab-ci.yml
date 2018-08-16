@@ -68,9 +68,12 @@ pages:
   stage: cleanup
   when: always
   script:
+    - npm install --progress=false
     - ls -l artifacts
     - echo ${ARTIFACTS_DIR}
     - cp -r ${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME} public
+    - node js/create_git_xml.js
+    - xsltproc -o public/index.html index_page.xsl git_xml.xml
   artifacts:
     when: always
     paths:

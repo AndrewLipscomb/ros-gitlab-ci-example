@@ -24,6 +24,9 @@ Be first sure your GitLab instance is set up fully with a Runner and Pages both 
 
 Make a new CI project from the Github source. Then, go to CI and start a pipeline. Gitlab should pick up the `.gitlab-ci.yml` file and start building the phases. Once completed, go to Pages in the Project overview, and you should have a rough hewn page containing all the results. 
 
+## Limitations
+- This has only been tested with a single remote repository setup. Multiple remotes will likely need to have some of the static site generation code reworked. 
+
 ## Acknowledgements
 Props to all the Open Source authors that make this stuff possible, built on the shoulders of giants. 
 XML parsing adapted from [wadefelix's XML style sheet](https://github.com/wadefelix/gtxslt) - cheers buddy!

@@ -1,0 +1,22 @@
+{
+  "name": "ros-gitlab-ci-example",
+  "version": "1.0.0",
+  "description": "A project for running and CI testing a ROS application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ALTinners/ros-gitlab-ci-example.git"
+  },
+  "author": "ALTinners (Andrew Lipscomb)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ALTinners/ros-gitlab-ci-example/issues"
+  },
+  "homepage": "https://github.com/ALTinners/ros-gitlab-ci-example#readme",
+  "dependencies": {
+    "newman-reporter-ros-scenario": "^1.0.0"
+  }
+}
