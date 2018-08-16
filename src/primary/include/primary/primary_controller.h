@@ -10,7 +10,7 @@
 #include "std_msgs/String.h"
 #include "std_srvs/Empty.h"
 
-#include "nlohmann/json.h"
+#include "nlohmann/json.hpp"
 
 namespace altinners
 {
