@@ -2,6 +2,7 @@ stages:
   - unit_test
   - integration_test
   - acceptance_test
+  - docs
   - cleanup
 
 # Caches nodejs, build and devel folders across the stages
@@ -78,7 +79,7 @@ acceptance_testing:
     expire_in: 1 week    
 
 doxygen:
-  stage: cleanup
+  stage: docs
   when: always
   variables:
     DOCS_DIR: "${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}/docs"
