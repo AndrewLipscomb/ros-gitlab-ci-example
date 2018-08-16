@@ -16,7 +16,5 @@
     "url": "https://github.com/ALTinners/ros-gitlab-ci-example/issues"
   },
   "homepage": "https://github.com/ALTinners/ros-gitlab-ci-example#readme",
-  "dependencies": {
-    "newman-reporter-ros-scenario": "^1.0.0"
-  }
+  "dependencies": {}
 }
