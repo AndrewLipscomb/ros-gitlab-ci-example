@@ -16,5 +16,8 @@
     "url": "https://github.com/ALTinners/ros-gitlab-ci-example/issues"
   },
   "homepage": "https://github.com/ALTinners/ros-gitlab-ci-example#readme",
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "xmlbuilder": "^10.0.0"
+  }
 }
