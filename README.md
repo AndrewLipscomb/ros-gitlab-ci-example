@@ -28,5 +28,6 @@ Make a new CI project from the Github source. Then, go to CI and start a pipelin
 - This has only been tested with a single remote repository setup. Multiple remotes will likely need to have some of the static site generation code reworked. 
 
 ## Acknowledgements
-Props to all the Open Source authors that make this stuff possible, built on the shoulders of giants. 
+Props to all the Open Source authors that make this stuff possible.
+Also to [nlohmann's JSON C++ lib](https://github.com/nlohmann/json) which I've used as an example submodule - its an excellent library.  
 XML parsing adapted from [wadefelix's XML style sheet](https://github.com/wadefelix/gtxslt) - cheers buddy!

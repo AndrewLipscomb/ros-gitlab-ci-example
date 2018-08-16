@@ -1,5 +1,6 @@
 build/
 devel/
 node_modules/
+public/docs/
 
 git_xml.xml

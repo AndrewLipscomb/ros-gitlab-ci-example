@@ -207,13 +207,11 @@ if(CATKIN_ENABLE_TESTING)
       primary_controller_unit_tests
       test/unit_tests.cpp
     )
-    if(TARGET primary_controller_unit_tests)
-      target_link_libraries(
-        primary_controller_unit_tests 
-        ${catkin_LIBRARIES}
-        ${PROJECT_NAME}
-      )
-    endif()
+    target_link_libraries(
+      primary_controller_unit_tests 
+      ${catkin_LIBRARIES}
+      ${PROJECT_NAME}
+    )
   endif(BUILD_UNIT_TESTS)
 
   if(BUILD_INTEGRATION_TESTS)
@@ -222,13 +220,11 @@ if(CATKIN_ENABLE_TESTING)
       test/integration_tests.test 
       test/integration_tests.cpp
     )
-    if(TARGET primary_controller_integration_tests)
-      target_link_libraries(
-        primary_controller_integration_tests 
-        ${catkin_LIBRARIES}
-        ${PROJECT_NAME}
-      )
-    endif()
+    target_link_libraries(
+      primary_controller_integration_tests 
+      ${catkin_LIBRARIES}
+      ${PROJECT_NAME}
+    )
   endif(BUILD_INTEGRATION_TESTS)
 
 endif(CATKIN_ENABLE_TESTING) # CATKIN_ENABLE_TESTING

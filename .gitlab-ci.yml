@@ -77,6 +77,21 @@ acceptance_testing:
     - ${HTML_FILE_FAILED}
     expire_in: 1 week    
 
+doxygen:
+  stage: cleanup
+  when: always
+  variables:
+    DOCS_DIR: "${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}/docs"
+  script: 
+    - doxygen Doxygen
+    - mkdir -p ${DOCS_DIR}
+    - mv -r docs ${DOCS_DIR}
+  artifacts:
+    when: always
+    paths:
+    - ${DOCS_DIR}
+    expire_in: 1 week    
+
 pages:
   stage: cleanup
   when: always

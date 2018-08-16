@@ -20,18 +20,23 @@ namespace secondary_controller
 class SecondaryController
 {
     public:
+        /**
+         * @brief Construct a new Secondary Controller object
+         * 
+         * @param nh A node handle
+         */
 	    explicit SecondaryController(ros::NodeHandle& nh);
 
     protected:
         bool reset(std_srvs::Empty::Request& req, std_srvs::Empty::Response& resp);
 
     private:
-        ros::ServiceServer reset_srv_;					///< ROS Service to reset
+        ros::ServiceServer reset_srv_;					//< ROS Service to reset
 
         ros::Publisher status_pub_;				        //< Publishes a status
 
-        ros::Publisher secondary_integer_pub_;			///< Publishes an integer
-        ros::Publisher secondary_double_pub_;			///< Publishes a double
+        ros::Publisher secondary_integer_pub_;			//< Publishes an integer
+        ros::Publisher secondary_double_pub_;			//< Publishes a double
 
 };
 
