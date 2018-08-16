@@ -83,7 +83,7 @@ doxygen:
   variables:
     DOCS_DIR: "${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME}/docs"
   script: 
-    - doxygen Doxygen
+    - doxygen Doxyfile
     - mkdir -p ${DOCS_DIR}
     - mv -r docs ${DOCS_DIR}
   artifacts:
