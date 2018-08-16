@@ -11,6 +11,7 @@ cache:
     - node_modules/
     - build/
     - devel/
+    - thirdparty/
 
 variables:
   # A flag to allow continuation in the case of a failing test stage. 
