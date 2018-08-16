@@ -17,6 +17,7 @@ variables:
   # Set to 1 (not "1") in the Pipeline Variables to permit passing tests even in fail cases
   ALLOW_FAILING_TESTS: 0   
   ARTIFACTS_DIR: "artifacts"
+  GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
   - source ./bash/source_ros.bash

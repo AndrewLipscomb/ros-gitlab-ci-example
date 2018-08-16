@@ -6,7 +6,8 @@
               "/opt/ros/kinetic/include/",
               "/opt/ros/melodic/include/",
               "${workspaceFolder}/src//primary/include",
-              "${workspaceFolder}/src/secondary/include"
+              "${workspaceFolder}/src/secondary/include",
+              "${workspaceFolder}/thirdparty/json/include"
           ],
           "defines": [],
           "compilerPath": "/usr/bin/gcc",
