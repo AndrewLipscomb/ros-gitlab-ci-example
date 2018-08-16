@@ -86,7 +86,8 @@ doxygen:
   script: 
     - doxygen Doxyfile
     - mkdir -p ${DOCS_DIR}
-    - cp -r docs ${DOCS_DIR}
+    - cp -r docs/html ${DOCS_DIR}
+    - ls -l ${DOCS_DIR}
   artifacts:
     when: always
     paths:
@@ -97,7 +98,7 @@ pages:
   stage: cleanup
   when: always
   script:
-    - ls -l artifacts
+    - find artifacts
     - echo ${ARTIFACTS_DIR}
     - cp -r ${ARTIFACTS_DIR}/${CI_COMMIT_REF_NAME} public
     - node js/create_git_xml.js
