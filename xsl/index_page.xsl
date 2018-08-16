@@ -38,7 +38,9 @@
         <xsl:param name="shortName" select="@shortName"/>
 		<tr bgcolor="#ffffc0">
 			<td width="25%" colspan="2">
-				<xsl:value-of select="@shortName"/>
+				<a href="{$shortName}/docs">
+					<xsl:value-of select="@shortName"/>
+                </a>
 			</td>
 			<td width="12.5%">
                 <a href="{$shortName}/unit_tests_failed.html">
